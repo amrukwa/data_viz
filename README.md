@@ -1,7 +1,4 @@
 # data_viz
-
-[![forthebadge](https://forthebadge.com/images/badges/built-with-resentment.svg)](https://forthebadge.com)
-
 Data visualisation exercising
 
 ## Motivation
