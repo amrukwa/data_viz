@@ -5,7 +5,8 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
 
-def basic_violins(df, plot_col, val, title, info, height=500, width=985, to_sort=True):
+def basic_violins(df, plot_col, val, title, info, height=500, width=985, to_sort=True,
+                  palette=px.colors.qualitative.Plotly):
     regions = df[plot_col].unique()
     j = 0
     for_sort = []
@@ -22,7 +23,7 @@ def basic_violins(df, plot_col, val, title, info, height=500, width=985, to_sort
                                   text=df[info][(df[plot_col] == region)],
                                   y=y,
                                   name=region,
-                                  marker=dict(color=px.colors.qualitative.Plotly[j]),
+                                  marker=dict(color=palette[j]),
                                   box_visible=True,
                                   meanline_visible=True
                                   ))
@@ -41,7 +42,8 @@ def basic_violins(df, plot_col, val, title, info, height=500, width=985, to_sort
     return fig
 
 
-def basic_boxes(df, plot_col, val, title, info, height=500, width=985, to_sort=True):
+def basic_boxes(df, plot_col, val, title, info, height=500, width=985, to_sort=True,
+                palette=px.colors.qualitative.Plotly):
     regions = df[plot_col].unique()
     j = 0
     for_sort = []
@@ -58,7 +60,7 @@ def basic_boxes(df, plot_col, val, title, info, height=500, width=985, to_sort=T
                                text=df[info][(df[plot_col] == region)],
                                y=y,
                                name=region,
-                               marker=dict(color=px.colors.qualitative.Plotly[j])
+                               marker=dict(color=palette[j])
                                ))
         j += 1
         q.append(region + ":<br>" + str(quantity))
@@ -75,7 +77,8 @@ def basic_boxes(df, plot_col, val, title, info, height=500, width=985, to_sort=T
     return fig
 
 
-def subboxes(df, plot_cat, plot_col, val, title, height, width, info, to_sort=True, v_spacing=0.1):
+def subboxes(df, plot_cat, plot_col, val, title, height, width, info, to_sort=True, v_spacing=0.1,
+             palette=px.colors.qualitative.Plotly):
     regions = df[plot_col].unique()
     fig = make_subplots(rows=len(df[plot_cat].unique()), cols=1, shared_xaxes=False,
                         shared_yaxes=True, vertical_spacing=v_spacing, subplot_titles=(df[plot_cat].unique()))
@@ -98,7 +101,7 @@ def subboxes(df, plot_cat, plot_col, val, title, height, width, info, to_sort=Tr
                                    name=region,
                                    legendgroup='group' + region,
                                    showlegend=True if j == len(df[plot_cat].unique()) else False,
-                                   marker=dict(color=px.colors.qualitative.Plotly[k])
+                                   marker=dict(color=palette[k])
                                    ))
             q.append(region + ":<br>" + str(quantity))
             k += 1
@@ -119,7 +122,8 @@ def subboxes(df, plot_cat, plot_col, val, title, height, width, info, to_sort=Tr
     return fig
 
 
-def subviolins(df, plot_cat, plot_col, val, title, height, width, info, to_sort=True, v_spacing=0.1):
+def subviolins(df, plot_cat, plot_col, val, title, height, width, info, to_sort=True, v_spacing=0.1,
+               palette=px.colors.qualitative.Plotly):
     regions = df[plot_col].unique()
     fig = make_subplots(rows=len(df[plot_cat].unique()), cols=1, shared_xaxes=False,
                         shared_yaxes=True, vertical_spacing=v_spacing, subplot_titles=(df[plot_cat].unique()))
@@ -142,7 +146,7 @@ def subviolins(df, plot_cat, plot_col, val, title, height, width, info, to_sort=
                                       name=region,
                                       legendgroup='group' + region,
                                       showlegend=True if j == len(df[plot_cat].unique()) else False,
-                                      marker=dict(color=px.colors.qualitative.Plotly[k]),
+                                      marker=dict(color=palette[k]),
                                       box_visible=True,
                                       meanline_visible=True
                                       ))
