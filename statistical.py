@@ -80,6 +80,9 @@ def basic_boxes(df, plot_col, val, title, info, height=500, width=985, to_sort=T
 def subboxes(df, plot_cat, plot_col, val, title, height, width, info, to_sort=True, v_spacing=0.1,
              palette=px.colors.qualitative.Plotly):
     regions = df[plot_col].unique()
+    to_represent = {}
+    for region in regions:
+        to_represent[region] = True
     fig = make_subplots(rows=len(df[plot_cat].unique()), cols=1, shared_xaxes=False,
                         shared_yaxes=True, vertical_spacing=v_spacing, subplot_titles=(df[plot_cat].unique()))
     j = 0
@@ -100,9 +103,10 @@ def subboxes(df, plot_cat, plot_col, val, title, height, width, info, to_sort=Tr
                                    text=df[info][(df[plot_col] == region) & (df[plot_cat] == i)],
                                    name=region,
                                    legendgroup='group' + region,
-                                   showlegend=True if j == len(df[plot_cat].unique()) else False,
+                                   showlegend=to_represent[region],
                                    marker=dict(color=palette[k])
                                    ))
+                to_represent[region] = False
             q.append(region + ":<br>" + str(quantity))
             k += 1
             # sort the data by median
@@ -125,6 +129,9 @@ def subboxes(df, plot_cat, plot_col, val, title, height, width, info, to_sort=Tr
 def subviolins(df, plot_cat, plot_col, val, title, height, width, info, to_sort=True, v_spacing=0.1,
                palette=px.colors.qualitative.Plotly):
     regions = df[plot_col].unique()
+    to_represent = {}
+    for region in regions:
+        to_represent[region] = True
     fig = make_subplots(rows=len(df[plot_cat].unique()), cols=1, shared_xaxes=False,
                         shared_yaxes=True, vertical_spacing=v_spacing, subplot_titles=(df[plot_cat].unique()))
     j = 0
@@ -145,11 +152,12 @@ def subviolins(df, plot_cat, plot_col, val, title, height, width, info, to_sort=
                                       text=df[info][(df[plot_col] == region) & (df[plot_cat] == i)],
                                       name=region,
                                       legendgroup='group' + region,
-                                      showlegend=True if j == len(df[plot_cat].unique()) else False,
+                                      showlegend=to_represent[region],
                                       marker=dict(color=palette[k]),
                                       box_visible=True,
                                       meanline_visible=True
                                       ))
+                to_represent[region] = False
             q.append(region + ":<br>" + str(quantity))
             k += 1
             # sort the data by median
