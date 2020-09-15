@@ -16,8 +16,11 @@ def to_hex(t):
     return a
 
 
-def opacity_conv(palette, alpha):
-    weaker = [webcolors.hex_to_rgb(h) for h in palette]
+def opacity_conv(palette, alpha, is_hex=True):
+    if is_hex:
+        weaker = [webcolors.hex_to_rgb(h) for h in palette]
+    else:
+        weaker = palette
     weaker = [make_rgb_transparent(h, alpha) for h in weaker]
     weaker = [to_hex(h) for h in weaker]
     return weaker
