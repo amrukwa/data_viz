@@ -78,7 +78,7 @@ def basic_boxes(df, plot_col, val, title, info, height=500, width=985, to_sort=T
 
 
 def subboxes(df, plot_cat, plot_col, val, title, height, width, info, to_sort=True, v_spacing=0.1,
-             palette=px.colors.qualitative.Plotly):
+             palette=px.colors.qualitative.Plotly, fontsize=11, tickangle=0):
     regions = df[plot_col].unique()
     to_represent = {}
     for region in regions:
@@ -118,6 +118,7 @@ def subboxes(df, plot_cat, plot_col, val, title, height, width, info, to_sort=Tr
             for trace in range(len(data)):
                 fig.append_trace(data[indices[trace]], row=j, col=1)
         fig.update_xaxes(
+            tickangle=tickangle, tickfont=dict(size=fontsize),
             title=plot_col,
             ticktext=q, tickvals=regions,
             row=j, col=1)
@@ -127,7 +128,7 @@ def subboxes(df, plot_cat, plot_col, val, title, height, width, info, to_sort=Tr
 
 
 def subviolins(df, plot_cat, plot_col, val, title, height, width, info, to_sort=True, v_spacing=0.1,
-               palette=px.colors.qualitative.Plotly):
+               palette=px.colors.qualitative.Plotly, fontsize=11, tickangle=0):
     regions = df[plot_col].unique()
     to_represent = {}
     for region in regions:
@@ -169,6 +170,7 @@ def subviolins(df, plot_cat, plot_col, val, title, height, width, info, to_sort=
             for trace in range(len(data)):
                 fig.append_trace(data[indices[trace]], row=j, col=1)
         fig.update_xaxes(
+            tickangle=tickangle, tickfont=dict(size=fontsize),
             title=plot_col,
             ticktext=q, tickvals=regions,
             row=j, col=1)
